@@ -4,7 +4,7 @@
 AC_PREREQ([2.67])
 AC_INIT(
     [crosstool-NG],
-    [m4_esyscmd_s([git describe --always --dirty])],
+    m4_esyscmd_s([git describe --always --dirty | sed -r 's/crosstool-ng-*//g' | cut -d- -f 1-2,4]),
     [crossgcc@sourceware.org])
 AC_CONFIG_AUX_DIR([scripts])
 
