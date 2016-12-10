@@ -13,7 +13,7 @@ do_gcc_get() {
     else
         # Account for the Linaro versioning
         linaro_version="$( echo "${CT_CC_GCC_VERSION}"  \
-                           |sed -r -e 's/^linaro-//;'   \
+                           |sed -r -e 's/^linaro-//;' |sed -r -e 's/^snapshot-//;'  \
                          )"
         linaro_series="$( echo "${linaro_version}"      \
                           |sed -r -e 's/-.*//;'         \
@@ -32,6 +32,7 @@ do_gcc_get() {
                        "https://releases.linaro.org/components/toolchain/gcc-linaro/${linaro_version}"        \
                        "https://releases.linaro.org/${YYMM}/components/toolchain/gcc-linaro/${linaro_series}" \
                        "http://launchpad.net/gcc-linaro/${linaro_series}/${linaro_version}/+download"         \
+                       "http://snapshots.linaro.org/components/toolchain/gcc-linaro/${linaro_version}"        \
                        http://cbuild.validation.linaro.org/snapshots
         fi
 
