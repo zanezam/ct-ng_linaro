@@ -219,7 +219,12 @@ do_binutils_backend() {
         "${CT_BINUTILS_EXTRA_CONFIG_ARRAY[@]}"
 
     if [ "${static_build}" = "y" ]; then
-        extra_make_flags+=("LDFLAGS=${ldflags} -all-static")
+        GCC_VERSION=`gcc -dumpversion | sed -e 's/\.\([0-9][0-9]\)/\1/g' -e 's/\.\([0-9]\)/0\1/g' -e 's/^[0-9]\{3,4\}$/&00/'`
+        if [ "${GCC_VERSION}" -ge "40700" ]; then 
+            extra_make_flags+=("LDFLAGS=${ldflags} -std=c++11")
+        else
+            extra_make_flags+=("LDFLAGS=${ldflags} -all-static")
+        fi
         CT_DoLog EXTRA "Prepare binutils for static build"
         CT_DoExecLog ALL make ${JOBSFLAGS} configure-host
     fi
