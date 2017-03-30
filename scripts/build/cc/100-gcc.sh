@@ -15,6 +15,11 @@ do_gcc_get() {
             linaro-*)
                 CT_GetLinaro "gcc" "${CT_CC_GCC_VERSION}"
                 ;;
+
+	    snapshot-*)
+                CT_GetFile "gcc-${CT_CC_GCC_VERSION}" \
+                           {http,ftp,https}:http://snapshots.linaro.org/components/toolchain/gcc-linaro/${linaro_version}/gcc-${CT_CC_GCC_VERSION}
+		;;
             *)
                 # The official gcc hosts put gcc under a gcc/release/ directory,
                 # whereas the mirrors put it in the gcc/ directory.
